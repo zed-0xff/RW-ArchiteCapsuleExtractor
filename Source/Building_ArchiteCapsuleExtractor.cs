@@ -449,6 +449,16 @@ public class Building_ArchiteCapsuleExtractor : Building_Enterable, IThingHolder
 		yield return command_Action4;
 	}
 
+#if RW15
+	public override void DynamicDrawPhaseAt(DrawPhase phase, Vector3 drawLoc, bool flip = false)
+	{
+		base.DynamicDrawPhaseAt(phase, drawLoc, flip);
+		if (phase == DrawPhase.Draw && base.Working && selectedPawn != null && innerContainer.Contains(selectedPawn))
+		{
+			selectedPawn.Drawer.renderer.RenderPawnAt(drawLoc + PawnDrawOffset, null, neverAimWeapon: true);
+		}
+	}
+#else
 	public override void Draw()
 	{
 		base.Draw();
@@ -457,6 +467,7 @@ public class Building_ArchiteCapsuleExtractor : Building_Enterable, IThingHolder
 			selectedPawn.Drawer.renderer.RenderPawnAt(DrawPos + PawnDrawOffset, null, neverAimWeapon: true);
 		}
 	}
+#endif
 
 	public override string GetInspectString()
 	{
