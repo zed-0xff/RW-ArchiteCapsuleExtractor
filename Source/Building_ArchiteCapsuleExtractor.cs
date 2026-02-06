@@ -104,10 +104,14 @@ public class Building_ArchiteCapsuleExtractor : Building_Enterable, IThingHolder
 		base.DeSpawn(mode);
 	}
 
-	public override void Tick()
+	protected override void Tick()
 	{
 		base.Tick();
+#if RW16
+		innerContainer.DoTick();
+#else
 		innerContainer.ThingOwnerTick();
+#endif
 		if (this.IsHashIntervalTick(250))
 		{
 			PowerTraderComp.PowerOutput = (base.Working ? (0f - base.PowerComp.Props.PowerConsumption) : (0f - base.PowerComp.Props.idlePowerDraw));
@@ -403,7 +407,6 @@ public class Building_ArchiteCapsuleExtractor : Building_Enterable, IThingHolder
 		}
 		Command_Action command_Action4 = new Command_Action();
 		command_Action4.defaultLabel = "InsertPerson".Translate() + "...";
-		command_Action4.defaultDesc = "InsertPersonGeneExtractorDesc".Translate();
 		command_Action4.icon = InsertPawnTex;
 		command_Action4.action = delegate
         {

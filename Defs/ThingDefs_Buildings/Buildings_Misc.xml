@@ -8,7 +8,7 @@
     <thingClass>ArchiteCapsuleExtractor.Building_ArchiteCapsuleExtractor</thingClass>
     <containedPawnsSelectable>true</containedPawnsSelectable>
     <passability>Impassable</passability>
-    <fillPercent>0.4</fillPercent>
+    <fillPercent>1</fillPercent>
     <castEdgeShadows>true</castEdgeShadows>
     <drawerType>MapMeshAndRealTime</drawerType>
     <tickerType>Normal</tickerType>

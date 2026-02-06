@@ -5,16 +5,19 @@
     <RootNamespace>zed.0xff.ArchiteCapsuleExtractor</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <!-- Default 1.5; use -p:RimWorldVersion=1.4 for 1.4. Output: 1.4/Assemblies or 1.5/Assemblies. Validate 1.5 API against decompiled/1.5 (e.g. RimWorld/WorkGiver_CarryToGeneExtractor.cs). -->
-    <RimWorldVersion Condition="'$(RimWorldVersion)' == ''">1.5</RimWorldVersion>
+    <!-- Default 1.6; use -p:RimWorldVersion=1.4|1.5 for older. Output: 1.4/Assemblies, 1.5/Assemblies, or 1.6/Assemblies. Validate API against decompiled/1.5 or decompiled/1.6. -->
+    <RimWorldVersion Condition="'$(RimWorldVersion)' == ''">1.6</RimWorldVersion>
     <OutputPath>../$(RimWorldVersion)/Assemblies</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(RimWorldVersion)' == '1.5'">
+  <PropertyGroup Condition="'$(RimWorldVersion)' == '1.5' Or '$(RimWorldVersion)' == '1.6'">
     <DefineConstants>$(DefineConstants);RW15</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RimWorldVersion)' == '1.6'">
+    <DefineConstants>$(DefineConstants);RW16</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -29,6 +32,10 @@
     </PackageReference>
     <PackageReference Include="Krafs.Rimworld.Ref" Condition="'$(RimWorldVersion)' == '1.5'">
       <Version>1.5.*</Version>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="Krafs.Rimworld.Ref" Condition="'$(RimWorldVersion)' == '1.6'">
+      <Version>1.6.*</Version>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
   </ItemGroup>
